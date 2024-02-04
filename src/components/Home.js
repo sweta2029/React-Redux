@@ -33,11 +33,12 @@ const Home = (props) => {
     getPost(postID);
   }, [postID]);
 
+  //handleInput
   const handleInputItem = event => {
     const { name, value } = event.target;
     setCurrentPost({ ...currentPost, [name]: value });
   };
-
+  //update status
   const updateStatus = status => {
     const data = {
       id: currentPost.id,
@@ -45,7 +46,6 @@ const Home = (props) => {
       body: currentPost.body,
       published: status
     };
-
     dispatch(updatePost(currentPost.id, data))
       .then(response => {
         setCurrentPost({ ...currentPost, published: status });
@@ -55,7 +55,7 @@ const Home = (props) => {
         console.log(e);
       });
   };
-
+//update content
   const updateContent = () => {
     dispatch(updatePost(currentPost.id, currentPost))
       .then(response => {
@@ -65,7 +65,7 @@ const Home = (props) => {
         console.log(e);
       });
   };
-
+//delete post
   const removePost = () => {
     dispatch(deletePost(currentPost.id))
       .then(() => {
