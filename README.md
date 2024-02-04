@@ -65,6 +65,11 @@ React Redux Post Application with Rest API calls
 * Redux
   one store for the entire application
   allows state to be updated with dispatch(action)
-  action- what happen in the application
+
+  -action- what happen in the application. Describe the changes in the state of application.
+  actions are js object that contain information.
   reducr- update the state based on action
-  store- which brings actions and reducers together
+  -Reducers are the functions that accepts state and action as parameter and return the next state of the application.
+  (prevState,action)=> newState
+  -store- which brings actions and reducers together
+  holds state of your application

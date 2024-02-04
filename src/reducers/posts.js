@@ -3,19 +3,28 @@ import {
   RETRIEVE_POSTS,
   UPDATE_POST,
   DELETE_POST,
+  RETRIVE_DATA,
+  CREATE_DATA,
 } from "../actions/types";
 
-const initialState = [];
+import { data } from "../data/db";
 
-const PostReducer = (posts = initialState, action) => {
+//const initialState = ;
+
+const PostReducer = (posts = data, action) => {
   const { type, payload } = action;
 
   switch (type) {
+    // case CREATE_DATA:
+    //   return [...posts.];
+    // case RETRIVE_DATA:
+    //   return [...posts, (createdata = payload)];
     case CREATE_POST:
+      //data.append(payload);
       return [...posts, payload];
 
     case RETRIEVE_POSTS:
-      return payload;
+      return;
 
     case UPDATE_POST:
       return posts.map((post) => {

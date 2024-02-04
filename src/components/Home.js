@@ -1,32 +1,42 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { updatePost, deletePost } from "../actions/posts";
+import { updatePost, deletePost, retrievePosts } from "../actions/posts";
 import PostDataService from "../services/PostService";
-import {useParams, useNavigate} from 'react-router-dom'
-
+import { useParams, useNavigate } from "react-router-dom";
+import { data } from "../data/db";
 const Home = (props) => {
-  const {id} = useParams();
-  const navigate = useNavigate()
+  const { id } = useParams();
+  const navigate = useNavigate();
   const postID = id;
   const initialPostState = {
     id: null,
     title: "",
     description: "",
-    published: false
+    published: false,
   };
   const [currentPost, setCurrentPost] = useState(initialPostState);
   const [message, setMessage] = useState("");
 
   const dispatch = useDispatch();
-
-  const getPost = id => {
-    PostDataService.get(id)
-      .then(response => {
-        setCurrentPost(response.data);
-      })
-      .catch(e => {
-        console.log(e);
+  console.log("test", data);
+  const getPost = (id) => {
+    if (id > 100) {
+      console.log("list", data[id - 1]);
+      setCurrentPost({
+        id: data[id - 1].id,
+        title: data[id - 1].title,
+        body: data[id - 1].body,
+        published: true,
       });
+    } else {
+      PostDataService.get(id)
+        .then((response) => {
+          setCurrentPost(response.data);
+        })
+        .catch((e) => {
+          console.log(e);
+        });
+    }
   };
 
   useEffect(() => {
@@ -34,44 +44,44 @@ const Home = (props) => {
   }, [postID]);
 
   //handleInput
-  const handleInputItem = event => {
+  const handleInputItem = (event) => {
     const { name, value } = event.target;
     setCurrentPost({ ...currentPost, [name]: value });
   };
   //update status
-  const updateStatus = status => {
+  const updateStatus = (status) => {
     const data = {
       id: currentPost.id,
       title: currentPost.title,
       body: currentPost.body,
-      published: status
+      published: status,
     };
     dispatch(updatePost(currentPost.id, data))
-      .then(response => {
+      .then((response) => {
         setCurrentPost({ ...currentPost, published: status });
         setMessage("statusupdated successfully!");
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
-//update content
+  //update content
   const updateContent = () => {
     dispatch(updatePost(currentPost.id, currentPost))
-      .then(response => {
+      .then((response) => {
         setMessage("The post was updated successfully!");
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
-//delete post
+  //delete post
   const removePost = () => {
     dispatch(deletePost(currentPost.id))
       .then(() => {
         navigate("/");
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };
@@ -138,7 +148,7 @@ const Home = (props) => {
       ) : (
         <div>
           <br />
-          <p>Please click on a Post...</p>
+          <p>Please click on a Post to edit...</p>
         </div>
       )}
     </div>

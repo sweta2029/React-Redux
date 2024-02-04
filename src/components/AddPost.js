@@ -12,24 +12,23 @@ const AddPost = () => {
 
   const dispatch = useDispatch();
 
-  const handleInputChange = event => {
+  const handleInputChange = (event) => {
     const { name, value } = event.target;
     setPost({ ...post, [name]: value });
   };
 
   const savePost = () => {
+    const { title, body, userId } = post;
 
-    const { title, body } = post;
-
-    dispatch(createPost(title, body))
-      .then(data => {
+    dispatch(createPost(title, body, userId))
+      .then((data) => {
         setPost({
           title: data.title,
           body: data.body,
         });
         setSubmitted(true);
       })
-      .catch(e => {
+      .catch((e) => {
         console.log(e);
       });
   };

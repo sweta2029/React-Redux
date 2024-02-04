@@ -1,6 +1,6 @@
-import rootReducer from './reducers';
-import { configureStore } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
+import rootReducer from "./reducers";
+import { configureStore } from "@reduxjs/toolkit";
+import logger from "redux-logger";
 
 const initialState = {};
 

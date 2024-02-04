@@ -1,28 +1,25 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  retrievePosts,
-} from "../actions/posts";
+import { retrievePosts } from "../actions/posts";
 import { Link } from "react-router-dom";
 
 const HomeList = () => {
-  
   const [currentPost, setCurrentPost] = useState(null);
   const [currentIndex, setCurrentIndex] = useState(-1);
- 
-  const posts = useSelector(state => state.posts);
+
+  const posts = useSelector((state) => state.posts);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(retrievePosts());
+    console.log(retrievePosts);
   }, [dispatch]);
 
   const setActivePost = (post, index) => {
     setCurrentPost(post);
     setCurrentIndex(index);
   };
-
 
   return (
     <div className="list row">
@@ -61,10 +58,7 @@ const HomeList = () => {
               {currentPost.body}
             </div>
             <div className="mt-2">
-              <Link
-                to={"/posts/"+currentPost.id}
-                className="btn btn-warning"
-              >
+              <Link to={"/posts/" + currentPost.id} className="btn btn-warning">
                 Edit
               </Link>
             </div>
