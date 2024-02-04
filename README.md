@@ -47,3 +47,8 @@ configure({ adapter: new Adapter() });
 React Redux Post Application with Rest API calls
 - Each Post has id, title, body.
 - We can create, retrieve, update, delete Posts.
+
+* create .env file to store URL
+process.env.REACT_APP_API_BASE_URL
+REACT_APP_API_BASE_URL=https://jsonplaceholder.typicode.com
+https://jsonplaceholder.typicode.com/posts
